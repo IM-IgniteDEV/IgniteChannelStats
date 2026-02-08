@@ -20,6 +20,7 @@ import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
@@ -80,6 +81,7 @@ public final class DiscordBot {
                   GatewayIntent.MESSAGE_CONTENT)
               .setMemberCachePolicy(MemberCachePolicy.ALL)
               .setChunkingFilter(ChunkingFilter.ALL)
+              .enableCache(CacheFlag.ONLINE_STATUS)
               .addEventListeners(new SlashCommandListener(this, configManager))
               .build();
 
