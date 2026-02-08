@@ -1,0 +1,6 @@
+name: IgniteChannelStats
+version: '${version}'
+main: com.ignitedev.IgniteChannelStats
+api-version: '1.21'
+author: IgniteDev
+description: Discord channel statistics tracker - counts channels matching patterns and updates voice channel names
