@@ -68,6 +68,9 @@ All commands require **Administrator** permission in Discord.
 | `mode`    | Yes      | Match mode: `Starts With` or `Contains`       |
 | `format`  | Yes      | Display format (use `{count}` for the number) |
 
+<img width="422" height="303" alt="image" src="https://github.com/user-attachments/assets/f40ef215-2d7c-4d69-a0cd-23caf65c8e55" />
+
+
 #### `/tracker members`
 
 | Option   | Required | Description                                   |
@@ -75,6 +78,9 @@ All commands require **Administrator** permission in Discord.
 | `id`     | Yes      | Unique identifier for the tracker             |
 | `target` | Yes      | Voice channel to update with the count        |
 | `format` | Yes      | Display format (use `{count}` for the number) |
+
+<img width="290" height="45" alt="image" src="https://github.com/user-attachments/assets/bc727a3a-bb56-4e99-8cf6-60482087e86f" />
+
 
 #### `/tracker online`
 
@@ -84,6 +90,9 @@ All commands require **Administrator** permission in Discord.
 | `target` | Yes      | Voice channel to update with the count        |
 | `format` | Yes      | Display format (use `{count}` for the number) |
 
+<img width="290" height="45" alt="image" src="https://github.com/user-attachments/assets/cb8d28d6-463b-43ca-b0c9-5c019001a636" />
+
+
 #### `/tracker bots`
 
 | Option   | Required | Description                                   |
@@ -91,6 +100,9 @@ All commands require **Administrator** permission in Discord.
 | `id`     | Yes      | Unique identifier for the tracker             |
 | `target` | Yes      | Voice channel to update with the count        |
 | `format` | Yes      | Display format (use `{count}` for the number) |
+
+<img width="290" height="45" alt="image" src="https://github.com/user-attachments/assets/c6a0b919-f79d-40f6-b46b-09532811575d" />
+
 
 #### `/tracker role`
 
@@ -191,4 +203,4 @@ Contributions are welcome! Please open an issue first to discuss proposed change
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the License - see the [LICENSE](LICENSE) file for details.
