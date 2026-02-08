@@ -1,0 +1,87 @@
+# IgniteChannelStats Configuration
+# Discord channel statistics tracker
+
+# ============================================
+# Discord Bot Settings
+# ============================================
+discord:
+  # Your Discord bot token (from Discord Developer Portal)
+  token: "YOUR_BOT_TOKEN_HERE"
+
+  # Your Discord server (guild) IDs - supports multiple servers
+  guild-ids:
+    - "YOUR_GUILD_ID_HERE"
+    # - "ANOTHER_GUILD_ID"
+
+# ============================================
+# General Settings
+# ============================================
+settings:
+  # How often to update channel names (in seconds)
+  # Note: Discord has rate limits, recommended minimum is 60 seconds
+  update-interval-seconds: 60
+
+# ============================================
+# Channel Trackers
+# ============================================
+# Each tracker monitors a specific statistic and updates a voice channel name
+#
+# Available tracker types:
+#   - channel: Count channels matching a pattern
+#   - member-count: Count total server members
+#   - members-online: Count online members (excludes bots)
+#   - bot-count: Count bots in the server
+#   - role-members: Count members with a specific role
+#
+# Common configuration for all trackers:
+#   type: Tracker type (channel, member-count, members-online, bot-count, role-members)
+#   target-channel-id: Voice channel ID to update with the count
+#   display-format: Format for the voice channel name (use {count} for the number)
+#
+# Additional configuration for 'channel' type:
+#   pattern: Text pattern to match channel names
+#   match-mode: STARTS_WITH or CONTAINS
+#
+# Additional configuration for 'role-members' type:
+#   role-id: The role ID to count members with
+#
+trackers:
+  # Example: Count all channels starting with "report-"
+  report-tickets:
+    type: channel
+    target-channel-id: "VOICE_CHANNEL_ID_HERE"
+    pattern: "report-"
+    match-mode: STARTS_WITH
+    display-format: "Open Report Tickets: {count}"
+
+  # Example: Track total member count
+  # all-members:
+  #   type: member-count
+  #   target-channel-id: "VOICE_CHANNEL_ID_HERE"
+  #   display-format: "All Members: {count}"
+
+  # Example: Track online members count
+  # members-online:
+  #   type: members-online
+  #   target-channel-id: "VOICE_CHANNEL_ID_HERE"
+  #   display-format: "Members Online: {count}"
+
+  # Example: Track bot count
+  # bot-count:
+  #   type: bot-count
+  #   target-channel-id: "VOICE_CHANNEL_ID_HERE"
+  #   display-format: "Bots: {count}"
+
+  # Example: Track members with a specific role
+  # vip-members:
+  #   type: role-members
+  #   target-channel-id: "VOICE_CHANNEL_ID_HERE"
+  #   role-id: "ROLE_ID_HERE"
+  #   display-format: "VIP Members: {count}"
+
+  # Example: Track staff members
+  # staff:
+  #   type: role-members
+  #   target-channel-id: "VOICE_CHANNEL_ID_HERE"
+  #   role-id: "STAFF_ROLE_ID_HERE"
+  #   display-format: "Staff Members: {count}"
