@@ -1,0 +1,55 @@
+plugins {
+  id 'java'
+  id 'com.gradleup.shadow' version '9.0.0-beta4'
+}
+
+group = 'com.ignitedev'
+version = '1.1.0'
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_21
+  targetCompatibility = JavaVersion.VERSION_21
+}
+
+repositories {
+  mavenCentral()
+  maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+  maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+
+dependencies {
+  compileOnly 'org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT'
+
+  implementation 'net.dv8tion:JDA:5.0.0-beta.20'
+
+  compileOnly 'org.projectlombok:lombok:1.18.30'
+  annotationProcessor 'org.projectlombok:lombok:1.18.30'
+}
+
+tasks.withType(JavaCompile).configureEach {
+  options.encoding = 'UTF-8'
+}
+
+shadowJar {
+  archiveBaseName.set('IgniteChannelStats')
+  archiveClassifier.set('')
+  archiveVersion.set(version)
+
+  relocate 'net.dv8tion', 'com.ignitedev.libs.jda'
+  relocate 'com.neovisionaries', 'com.ignitedev.libs.neovisionaries'
+  relocate 'okhttp3', 'com.ignitedev.libs.okhttp3'
+  relocate 'okio', 'com.ignitedev.libs.okio'
+  relocate 'gnu.trove', 'com.ignitedev.libs.trove'
+  relocate 'com.fasterxml', 'com.ignitedev.libs.fasterxml'
+  relocate 'org.apache.commons', 'com.ignitedev.libs.commons'
+
+  mergeServiceFiles()
+
+  minimize {
+    exclude(dependency('net.dv8tion:JDA:.*'))
+  }
+}
+
+tasks.build {
+  dependsOn shadowJar
+}
