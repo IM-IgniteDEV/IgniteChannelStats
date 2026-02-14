@@ -7,7 +7,8 @@ import com.ignitedev.base.tracker.StatisticsTracker;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.GuildChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.StandardGuildChannel;
 
 @RequiredArgsConstructor
 public final class TrackerExecutor {
@@ -27,7 +28,7 @@ public final class TrackerExecutor {
   }
 
   private void updateTargetChannel(Guild guild, StatisticsTracker tracker, int count) {
-    findVoiceChannel(guild, tracker.getTargetChannelId())
+    findTargetChannel(guild, tracker.getTargetChannelId())
         .ifPresentOrElse(
             channel -> {
               String newName = tracker.formatDisplay(count);
@@ -47,19 +48,40 @@ public final class TrackerExecutor {
                                     + error.getMessage()));
               }
             },
-            () ->
+            () -> {
+              GuildChannel raw = guild.getGuildChannelById(tracker.getTargetChannelId());
+              if (raw != null) {
+                logger.warning(
+                    "Channel exists but is unsupported type "
+                        + raw.getType()
+                        + " for tracker '"
+                        + tracker.getId()
+                        + "': "
+                        + tracker.getTargetChannelId());
+              } else {
                 logger.warning(
                     "Target channel not found for tracker '"
                         + tracker.getId()
                         + "': "
-                        + tracker.getTargetChannelId()));
+                        + tracker.getTargetChannelId()
+                        + " (guild has "
+                        + guild.getChannels().size()
+                        + " channels cached, "
+                        + guild.getVoiceChannels().size()
+                        + " voice)");
+              }
+            });
   }
 
   private Optional<Guild> findGuild(String guildId) {
     return Optional.ofNullable(jda.getGuildById(guildId));
   }
 
-  private Optional<VoiceChannel> findVoiceChannel(Guild guild, String channelId) {
-    return Optional.ofNullable(guild.getVoiceChannelById(channelId));
+  private Optional<StandardGuildChannel> findTargetChannel(Guild guild, String channelId) {
+    GuildChannel channel = guild.getGuildChannelById(channelId);
+    if (channel instanceof StandardGuildChannel standard) {
+      return Optional.of(standard);
+    }
+    return Optional.empty();
   }
 }
